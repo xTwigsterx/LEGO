@@ -1,0 +1,51 @@
+#SYMBOLS
+Index	Identifier	Type	Flag	Data	Size	RefCount
+0	__RandomTmp	5	1	0	4	6
+1	__constVal32768	6	0	4	4	1
+2	__constVal65536	6	0	8	4	1
+3	Speed	1	1	12	1	6
+4	wRandom	1	1	13	1	2
+5	__constVal63	2	0	14	1	4
+6	__constVal96	2	0	15	1	4
+7	__constVal25	2	0	16	1	1
+8	__constVal0	2	1	17	1	13
+9	__constVal32	2	0	18	1	12
+10	__constVal3	2	0	19	1	4
+11	__OnRev_Tmp	2	1	20	1	2
+12	__constVal2	2	0	21	1	1
+13	__RandomArgs	8	0	1	4	2
+14	__RandomArgs.Result	4	1	24	2	2
+15	__OUT_BC	7	0	26	4	4
+16	__OUT_BC.__OUT_BC_type	1	0	0	1	0
+#SOURCES
+Clump	Line	PC	Source
+0	9	0		set Speed, 100
+0	10	3	#pragma macro 7
+0	10	3		setout __OUT_BC, 2, Speed, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+0	10	26	#line 10 "Z:\Downloads\NBC\demoRandom1.nbc"
+0	11	26		wait 4000
+0	12	28		sub Speed, Speed, __constVal25
+0	13	32	#pragma macro 7
+0	13	32		syscall 24, __RandomArgs
+0	13	35		add __RandomTmp, __RandomArgs.Result, __constVal32768
+0	13	39		mul __RandomTmp, __RandomTmp, __constVal2
+0	13	43		div __RandomTmp, __RandomTmp, __constVal65536
+0	13	47		mov wRandom, __RandomTmp
+0	13	49	#line 13 "Z:\Downloads\NBC\demoRandom1.nbc"
+0	14	49		brtst 4, Then, wRandom
+0	16	52	#pragma macro 10
+0	16	52		neg __OnRev_Tmp, Speed
+0	16	55		setout __OUT_BC, 2, __OnRev_Tmp, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+0	16	78	#line 16 "Z:\Downloads\NBC\demoRandom1.nbc"
+0	17	78		jmp EndIf
+0	19	80	#pragma macro 7
+0	19	80		setout __OUT_BC, 2, Speed, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+0	19	103	#line 19 "Z:\Downloads\NBC\demoRandom1.nbc"
+0	21	103		wait 4000
+0	22	105	#pragma macro 7
+0	22	105		setout __OUT_BC, 2, __constVal0, 1, __constVal3, 8, __constVal0, 6, __constVal32, 7, __constVal0, 5, __constVal0, 10, __constVal96, 11, __constVal32, 12, __constVal32, 0, __constVal63
+0	22	128	#line 22 "Z:\Downloads\NBC\demoRandom1.nbc"
+0	23	128		exit -1, -1
+#CLUMPS
+Clump	Name	Offset	File
+0	main	0	Z:\Downloads\NBC\demoRandom1.nbc

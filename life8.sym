@@ -1,0 +1,274 @@
+#SYMBOLS
+Index	Identifier	Type	Flag	Data	Size	RefCount
+0	gencount	3	1	0	2	4
+1	cnidx	3	1	2	2	6
+2	cnlen	3	1	4	2	3
+3	timer1	3	1	6	2	2
+4	timer2	3	1	8	2	4
+5	nextgenlen	3	1	10	2	2
+6	dflen	3	1	12	2	3
+7	dfpos	3	1	14	2	3
+8	aillen	3	1	16	2	6
+9	ailValue	3	1	18	2	4
+10	dfidx	3	1	20	2	6
+11	ailtmp	3	1	22	2	4
+12	ailidx	3	1	24	2	12
+13	chkidx	3	1	26	2	7
+14	EndOfLiveCells	3	1	28	2	2
+15	chklen	3	1	30	2	3
+16	CountOfNeighborsOutput	3	1	32	2	5
+17	con_idx	4	1	34	2	4
+18	CellInput	3	1	36	2	3
+19	newpos	4	1	38	2	5
+20	cnpos	3	1	40	2	2
+21	__apos	3	1	42	2	16
+22	__constVal200	4	0	44	2	4
+23	__constVal6400	4	0	46	2	2
+24	bCellIsLive	1	1	48	1	2
+25	__CountOfNeighbors_return	1	1	49	1	3
+26	hoodidx	1	1	50	1	10
+27	hoodval	2	1	51	1	4
+28	hoodlen	1	0	52	1	2
+29	__alreadyInNextGenList_return	1	1	53	1	3
+30	__alreadyInLiveCells_return	1	1	54	1	3
+31	__drawFrame_return	1	1	55	1	3
+32	__calcNeighbors_return	1	1	56	1	3
+33	__newGeneration_return	1	1	57	1	3
+34	__constVal40	2	0	58	1	1
+35	__constVal2	2	0	59	1	1
+36	__constVal100	2	0	60	1	2
+37	__constVal3	2	0	61	1	1
+38	ar	1	1	62	1	2
+39	ac	1	1	63	1	2
+40	bAlreadyInList	1	1	64	1	8
+41	__constVal30	2	0	65	1	2
+42	__constVal0	2	1	66	1	8
+43	__constVal1	2	0	67	1	14
+44	__NumOutArgs	8	0	4	16	10
+45	__NumOutArgs.Result	2	1	68	1	10
+46	__NumOutArgs.Location	8	0	2	4	10
+47	__NumOutArgs.Location.X	4	1	72	2	10
+48	__NumOutArgs.Location.Y	4	1	74	2	10
+49	__NumOutArgs.Text	7	0	76	4	10
+50	__NumOutArgs.Text.Text_type	1	0	0	1	0
+51	__NumOutArgs.Options	5	1	80	4	10
+52	__PointOutArgs	8	0	3	12	8
+53	__PointOutArgs.Result	2	1	84	1	8
+54	__PointOutArgs.Location	8	0	2	4	8
+55	__PointOutArgs.Location.X	4	1	88	2	8
+56	__PointOutArgs.Location.Y	4	1	90	2	8
+57	__PointOutArgs.Options	5	1	92	4	8
+58	dpArgs	8	0	3	12	3
+59	dpArgs.Result	2	1	96	1	3
+60	dpArgs.Location	8	0	2	4	3
+61	dpArgs.Location.X	4	1	100	2	3
+62	dpArgs.Location.Y	4	1	102	2	3
+63	dpArgs.Options	5	1	104	4	3
+64	__TextOutArgs	8	0	4	16	5
+65	__TextOutArgs.Result	2	1	108	1	5
+66	__TextOutArgs.Location	8	0	2	4	5
+67	__TextOutArgs.Location.X	4	1	112	2	5
+68	__TextOutArgs.Location.Y	4	1	114	2	5
+69	__TextOutArgs.Text	7	0	116	4	5
+70	__TextOutArgs.Text.Text_type	1	0	0	1	0
+71	__TextOutArgs.Options	5	1	120	4	5
+72	tmpctcn	7	0	124	4	4
+73	tmpctcn.tmpctcn_type	3	0	0	2	0
+74	hood	7	0	126	4	2
+75	hood.hood_type	2	0	0	1	0
+76	__constStr0006	7	0	128	4	1
+77	__constStr0006.__constStr0006_type	1	1	0	1	0
+78	__atatmp	7	0	130	4	20
+79	__atatmp.__atatmp_type	3	0	0	2	0
+80	livecells	7	0	132	4	27
+81	livecells.livecells_type	3	0	0	2	0
+82	possibleNextGenCells	7	0	134	4	7
+83	possibleNextGenCells.possibleNextGenCells_type	3	0	0	2	0
+#SOURCES
+Clump	Line	PC	Source
+0	24	0		set gencount, 0
+0	26	3		arrinit livecells, __constVal0, __constVal1
+0	41	7	#pragma macro 3
+0	41	7		set __apos, 2520
+0	41	10		arrbuild __atatmp, livecells, __apos
+0	41	15		mov livecells, __atatmp
+0	41	17	#line 41 "Z:\Downloads\NBC\life8.nbc"
+0	42	17	#pragma macro 3
+0	42	17		set __apos, 2521
+0	42	20		arrbuild __atatmp, livecells, __apos
+0	42	25		mov livecells, __atatmp
+0	42	27	#line 42 "Z:\Downloads\NBC\life8.nbc"
+0	43	27	#pragma macro 3
+0	43	27		set __apos, 2522
+0	43	30		arrbuild __atatmp, livecells, __apos
+0	43	35		mov livecells, __atatmp
+0	43	37	#line 43 "Z:\Downloads\NBC\life8.nbc"
+0	44	37	#pragma macro 3
+0	44	37		set __apos, 2622
+0	44	40		arrbuild __atatmp, livecells, __apos
+0	44	45		mov livecells, __atatmp
+0	44	47	#line 44 "Z:\Downloads\NBC\life8.nbc"
+0	45	47	#pragma macro 3
+0	45	47		set __apos, 2721
+0	45	50		arrbuild __atatmp, livecells, __apos
+0	45	55		mov livecells, __atatmp
+0	45	57	#line 45 "Z:\Downloads\NBC\life8.nbc"
+0	48	57	#pragma macro 3
+0	48	57		set __apos, 1530
+0	48	60		arrbuild __atatmp, livecells, __apos
+0	48	65		mov livecells, __atatmp
+0	48	67	#line 48 "Z:\Downloads\NBC\life8.nbc"
+0	49	67	#pragma macro 3
+0	49	67		set __apos, 1531
+0	49	70		arrbuild __atatmp, livecells, __apos
+0	49	75		mov livecells, __atatmp
+0	49	77	#line 49 "Z:\Downloads\NBC\life8.nbc"
+0	50	77	#pragma macro 3
+0	50	77		set __apos, 1532
+0	50	80		arrbuild __atatmp, livecells, __apos
+0	50	85		mov livecells, __atatmp
+0	50	87	#line 50 "Z:\Downloads\NBC\life8.nbc"
+0	54	87	#pragma macro 6
+0	54	87		mov __PointOutArgs.Location.X, __constVal200
+0	54	89		mov __PointOutArgs.Location.Y, __constVal200
+0	54	91		mov __PointOutArgs.Options, __constVal1
+0	54	93		syscall 14, __PointOutArgs
+0	54	96	#line 54 "Z:\Downloads\NBC\life8.nbc"
+0	55	96	#pragma macro 7
+0	55	96		mov __NumOutArgs.Location.X, __constVal0
+0	55	98		mov __NumOutArgs.Location.Y, __constVal0
+0	55	100		mov __NumOutArgs.Options, __constVal0
+0	55	102		numtostr __NumOutArgs.Text, gencount
+0	55	105		syscall 13, __NumOutArgs
+0	55	108	#line 55 "Z:\Downloads\NBC\life8.nbc"
+0	56	108	#pragma macro 7
+0	56	108		mov __NumOutArgs.Location.X, __constVal40
+0	56	110		mov __NumOutArgs.Location.Y, __constVal0
+0	56	112		mov __NumOutArgs.Options, __constVal0
+0	56	114		numtostr __NumOutArgs.Text, timer2
+0	56	117		syscall 13, __NumOutArgs
+0	56	120	#line 56 "Z:\Downloads\NBC\life8.nbc"
+0	58	120		arrsize nextgenlen, livecells
+0	59	123		brcmp 2, life_end, nextgenlen, __constVal1
+0	61	127		gettick timer1
+0	63	129		subcall drawFrame, __drawFrame_return
+0	64	131		subcall calcNeighbors, __calcNeighbors_return
+0	65	133		subcall newGeneration, __newGeneration_return
+0	67	135		gettick timer2
+0	68	137		sub timer2, timer2, timer1
+0	70	141		add gencount, gencount, __constVal1
+0	71	145		jmp life
+0	74	147		wait 1000
+0	75	149	#pragma macro 6
+0	75	149		mov __PointOutArgs.Location.X, __constVal200
+0	75	151		mov __PointOutArgs.Location.Y, __constVal200
+0	75	153		mov __PointOutArgs.Options, __constVal1
+0	75	155		syscall 14, __PointOutArgs
+0	75	158	#line 75 "Z:\Downloads\NBC\life8.nbc"
+0	76	158	#pragma macro 7
+0	76	158		mov __TextOutArgs.Location.X, __constVal30
+0	76	160		mov __TextOutArgs.Location.Y, __constVal30
+0	76	162		mov __TextOutArgs.Options, __constVal0
+0	76	164		mov __TextOutArgs.Text, __constStr0006
+0	76	166		syscall 13, __TextOutArgs
+0	76	169	#line 76 "Z:\Downloads\NBC\life8.nbc"
+0	77	169		wait 2000
+0	78	171		exit -1, -1
+1	93	0		arrsize dflen, livecells
+1	94	3		set dfidx, 1
+1	96	6		brcmp 3, df_exit, dfidx, dflen
+1	99	10		index dfpos, livecells, dfidx
+1	102	14		mod ac, dfpos, __constVal100
+1	103	18		div ar, dfpos, __constVal100
+1	105	22	#pragma macro 3
+1	105	22		mov dpArgs.Location.X, ac
+1	105	24		mov dpArgs.Location.Y, ar
+1	105	26		syscall 14, dpArgs
+1	105	29	#line 105 "Z:\Downloads\NBC\life8.nbc"
+1	107	29		add dfidx, dfidx, __constVal1
+1	108	33		brcmp 0, doPlot_df, dfidx, dflen
+1	110	37		subret __drawFrame_return
+2	122	0		set bAlreadyInList, 0
+2	123	3		set ailidx, 1
+2	124	6		arrsize aillen, possibleNextGenCells
+2	125	9		brcmp 3, aingl_exit, ailidx, aillen
+2	127	13		index ailtmp, possibleNextGenCells, ailidx
+2	128	17		cmp 4, bAlreadyInList, ailValue, ailtmp
+2	129	21		brtst 5, aingl_exit, bAlreadyInList
+2	130	24		add ailidx, ailidx, __constVal1
+2	131	28		brcmp 0, aingl_loop, ailidx, aillen
+2	133	32		subret __alreadyInNextGenList_return
+3	137	0		set bAlreadyInList, 0
+3	138	3		set ailidx, 1
+3	139	6		arrsize aillen, livecells
+3	140	9		brcmp 3, ailc_exit, ailidx, aillen
+3	142	13		index ailtmp, livecells, ailidx
+3	143	17		cmp 4, bAlreadyInList, ailValue, ailtmp
+3	144	21		brtst 5, ailc_exit, bAlreadyInList
+3	145	24		add ailidx, ailidx, __constVal1
+3	146	28		brcmp 0, ailc_loop, ailidx, aillen
+3	148	32		subret __alreadyInLiveCells_return
+4	166	0		mov possibleNextGenCells, livecells
+4	168	2		set cnidx, 1
+4	169	5		arrsize cnlen, livecells
+4	170	8		brcmp 3, cn_exit, cnidx, cnlen
+4	172	12		index cnpos, livecells, cnidx
+4	173	16		set hoodidx, 0
+4	175	19		index hoodval, hood, hoodidx
+4	176	23		add newpos, cnpos, hoodval
+4	177	27		brtst 0, hood_skip, newpos
+4	178	30		brcmp 3, hood_skip, newpos, __constVal6400
+4	180	34		mov ailValue, newpos
+4	181	36		subcall alreadyInNextGenList, __alreadyInNextGenList_return
+4	182	38		brtst 5, hood_skip, bAlreadyInList
+4	184	41	#pragma macro 2
+4	184	41		arrbuild __atatmp, possibleNextGenCells, newpos
+4	184	46		mov possibleNextGenCells, __atatmp
+4	184	48	#line 184 "Z:\Downloads\NBC\life8.nbc"
+4	186	48		add hoodidx, hoodidx, __constVal1
+4	187	52		brcmp 0, hood_loop, hoodidx, hoodlen
+4	188	56		add cnidx, cnidx, __constVal1
+4	189	60		brcmp 0, cn_loop, cnidx, cnlen
+4	191	64		subret __calcNeighbors_return
+5	204	0		set CountOfNeighborsOutput, 0
+5	209	3		set hoodidx, 0
+5	211	6		index hoodval, hood, hoodidx
+5	212	10		add con_idx, CellInput, hoodval
+5	213	14		brtst 0, hood_skip2, con_idx
+5	214	17		brcmp 3, hood_skip2, con_idx, __constVal6400
+5	216	21		mov ailValue, con_idx
+5	217	23		subcall alreadyInLiveCells, __alreadyInLiveCells_return
+5	218	25		brtst 4, hood_skip2, bAlreadyInList
+5	220	28		add CountOfNeighborsOutput, CountOfNeighborsOutput, __constVal1
+5	222	32		add hoodidx, hoodidx, __constVal1
+5	223	36		brcmp 0, hood_loop2, hoodidx, hoodlen
+5	225	40		subret __CountOfNeighbors_return
+6	237	0		arrsize EndOfLiveCells, livecells
+6	239	3		arrinit tmpctcn, __constVal0, __constVal1
+6	241	7		arrsize chklen, possibleNextGenCells
+6	242	10		set chkidx, 1
+6	243	13		brcmp 3, chk_exit, chkidx, chklen
+6	245	17		index CellInput, possibleNextGenCells, chkidx
+6	247	21		subcall CountOfNeighbors, __CountOfNeighbors_return
+6	251	23		cmp 0, bCellIsLive, chkidx, EndOfLiveCells
+6	256	27		brtst 4, checkbirth, bCellIsLive
+6	258	30		brcmp 4, cellIsAliveNextGen, CountOfNeighborsOutput, __constVal2
+6	261	34		brcmp 4, cellIsAliveNextGen, CountOfNeighborsOutput, __constVal3
+6	264	38		jmp endcheck
+6	267	40	#pragma macro 2
+6	267	40		arrbuild __atatmp, tmpctcn, CellInput
+6	267	45		mov tmpctcn, __atatmp
+6	267	47	#line 267 "Z:\Downloads\NBC\life8.nbc"
+6	271	47		add chkidx, chkidx, __constVal1
+6	272	51		brcmp 0, doCheck, chkidx, chklen
+6	275	55		mov livecells, tmpctcn
+6	278	57		subret __newGeneration_return
+#CLUMPS
+Clump	Name	Offset	File
+0	main	0	Z:\Downloads\NBC\life8.nbc
+1	drawFrame	174	Z:\Downloads\NBC\life8.nbc
+2	alreadyInNextGenList	213	Z:\Downloads\NBC\life8.nbc
+3	alreadyInLiveCells	247	Z:\Downloads\NBC\life8.nbc
+4	calcNeighbors	281	Z:\Downloads\NBC\life8.nbc
+5	CountOfNeighbors	347	Z:\Downloads\NBC\life8.nbc
+6	newGeneration	389	Z:\Downloads\NBC\life8.nbc

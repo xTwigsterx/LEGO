@@ -1,0 +1,37 @@
+#SYMBOLS
+Index	Identifier	Type	Flag	Data	Size	RefCount
+0	aaa	1	1	0	1	2
+1	__constVal8	2	0	1	1	1
+2	ccc	1	1	2	1	5
+3	bbb	1	1	3	1	3
+4	__constVal20	2	0	4	1	1
+5	__constVal5	2	0	5	1	2
+6	__constVal0	2	1	6	1	1
+7	__constVal10	2	0	7	1	1
+8	__NumOutArgs	8	0	4	16	5
+9	__NumOutArgs.Result	2	1	8	1	5
+10	__NumOutArgs.Location	8	0	2	4	5
+11	__NumOutArgs.Location.X	4	1	12	2	5
+12	__NumOutArgs.Location.Y	4	1	14	2	5
+13	__NumOutArgs.Text	7	0	16	4	5
+14	__NumOutArgs.Text.Text_type	1	0	0	1	0
+15	__NumOutArgs.Options	5	1	20	4	5
+#SOURCES
+Clump	Line	PC	Source
+0	7	0		set aaa, 10
+0	8	3		mul bbb, __constVal20, __constVal5
+0	9	7		mov ccc, bbb
+0	10	9		div ccc, bbb, aaa
+0	11	13		add ccc, ccc, __constVal5
+0	12	17	#pragma macro 7
+0	12	17		mov __NumOutArgs.Location.X, __constVal10
+0	12	19		mov __NumOutArgs.Location.Y, __constVal8
+0	12	21		mov __NumOutArgs.Options, __constVal0
+0	12	23		numtostr __NumOutArgs.Text, ccc
+0	12	26		syscall 13, __NumOutArgs
+0	12	29	#line 12 "Z:\Downloads\NBC\demo1.nbc"
+0	13	29		wait 2000
+0	14	31		exit -1, -1
+#CLUMPS
+Clump	Name	Offset	File
+0	main	0	Z:\Downloads\NBC\demo1.nbc

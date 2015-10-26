@@ -1,0 +1,279 @@
+dseg segment
+  livecells word[]
+  possibleNextGenCells word[]
+  __atatmp word[]
+  __apos word
+dseg ends
+
+#define ADD_TO_ARRAY(array, value) arrbuild __atatmp, array, value \
+  mov array, __atatmp
+
+#define MakeCellLive(x,y) set __apos, (y*100)+x \
+  ADD_TO_ARRAY(livecells, __apos)
+
+
+thread main
+  dseg segment
+    dtArgs TDrawText
+    timer1 word
+    timer2 word
+    nextgenlen word
+    gencount word
+  dseg ends
+  
+  set gencount, 0
+
+  arrinit livecells, 0, 1
+
+/*
+  MakeCellLive(20,25)
+  MakeCellLive(21,25)
+  MakeCellLive(22,25)
+  MakeCellLive(23,25)
+  MakeCellLive(24,25)
+  MakeCellLive(25,25)
+  MakeCellLive(26,25)
+  MakeCellLive(27,25)
+  MakeCellLive(28,25)
+  MakeCellLive(29,25)
+*/
+  // draw the glider
+  MakeCellLive(20,25)
+  MakeCellLive(21,25)
+  MakeCellLive(22,25)
+  MakeCellLive(22,26)
+  MakeCellLive(21,27)
+
+  // draw the blinker
+  MakeCellLive(30,15)
+  MakeCellLive(31,15)
+  MakeCellLive(32,15)
+
+  // start the cycles
+  life:
+    ClearScreen()
+    NumOut(0, 0, gencount)
+    NumOut(40, 0, timer2)
+
+    arrsize nextgenlen, livecells
+    brcmp LTEQ, life_end, nextgenlen, 1
+    
+    gettick timer1   // start timing the frame
+
+    call drawFrame
+    call calcNeighbors
+    call newGeneration
+
+    gettick timer2
+    sub timer2, timer2, timer1
+
+    add gencount, gencount, 1
+  jmp life
+
+  life_end:
+    wait 1000
+    ClearScreen()
+    TextOut(30, 30, 'The End')
+    wait 2000
+endt
+
+#define PLOT(x,y) mov dpArgs.Location.X, x \
+                  mov dpArgs.Location.Y, y \
+                  syscall DrawPoint, dpArgs
+
+subroutine drawFrame
+  dseg segment
+    dpArgs TDrawPoint
+    dflen word
+    dfidx word
+    ar byte // array row
+    ac byte // array colom
+    dfpos word
+  dseg ends
+    arrsize dflen, livecells
+    set dfidx, 1
+
+    brcmp GTEQ, df_exit, dfidx, dflen // frame completed ?
+  doPlot_df:
+      // each cell address in livecells is alive
+      index dfpos, livecells, dfidx
+      // calculate ar, ac from dfpos
+      // dfpos = (ar*100)+ac
+      mod ac, dfpos, 100 // ac = 0..99
+      div ar, dfpos, 100 // ar = 0..63
+
+      PLOT(ac, ar) // cell not dead , good time to plot it on the LCD
+        
+      add dfidx, dfidx, 1
+    brcmp LT, doPlot_df, dfidx, dflen // frame completed ?
+  df_exit:
+  return
+ends
+
+dseg segment
+  bAlreadyInList byte
+  ailValue word
+  aillen word
+  ailidx word
+  ailtmp word
+dseg ends
+
+subroutine alreadyInNextGenList
+  set bAlreadyInList, FALSE
+  set ailidx, 1
+  arrsize aillen, possibleNextGenCells
+  brcmp GTEQ, aingl_exit, ailidx, aillen
+aingl_loop:
+    index ailtmp, possibleNextGenCells, ailidx
+    cmp, EQ, bAlreadyInList, ailValue, ailtmp
+    brtst, NEQ, aingl_exit, bAlreadyInList
+    add ailidx, ailidx, 1
+  brcmp LT, aingl_loop, ailidx, aillen
+aingl_exit:
+  return
+ends
+
+subroutine alreadyInLiveCells
+  set bAlreadyInList, FALSE
+  set ailidx, 1
+  arrsize aillen, livecells
+  brcmp GTEQ, ailc_exit, ailidx, aillen
+ailc_loop:
+    index ailtmp, livecells, ailidx
+    cmp, EQ, bAlreadyInList, ailValue, ailtmp
+    brtst, NEQ, ailc_exit, bAlreadyInList
+    add ailidx, ailidx, 1
+  brcmp LT, ailc_loop, ailidx, aillen
+ailc_exit:
+  return
+ends
+
+dseg segment
+  hood sbyte[] [99, 100, 101, -1, 1, -101, -100, -99]
+  hoodlen byte 8
+  hoodidx byte
+  hoodval sbyte
+dseg ends
+
+subroutine calcNeighbors
+  dseg segment
+    cnlen word
+    cnidx word
+    cnpos word
+    newpos sword
+  dseg ends
+  // first copy last generation of live cells into possible next generation
+  mov possibleNextGenCells, livecells
+
+  set cnidx, 1
+  arrsize cnlen, livecells
+  brcmp GTEQ, cn_exit, cnidx, cnlen // frame completed ?
+cn_loop:
+    index cnpos, livecells, cnidx
+    set hoodidx, 0
+  hood_loop:
+      index hoodval, hood, hoodidx
+      add newpos, cnpos, hoodval
+      brtst LT, hood_skip, newpos // skip negative numbers
+      brcmp GTEQ, hood_skip, newpos, 6400 // skip numbers too large
+      // is newpos already in the array?
+      mov ailValue, newpos
+      call alreadyInNextGenList
+      brtst NEQ, hood_skip, bAlreadyInList // skip if already in list
+      // add newpos to cellstochecknext
+      ADD_TO_ARRAY(possibleNextGenCells, newpos)
+    hood_skip:
+      add hoodidx, hoodidx, 1
+    brcmp LT, hood_loop, hoodidx, hoodlen
+    add cnidx, cnidx, 1
+  brcmp LT, cn_loop, cnidx, cnlen
+cn_exit:
+  return
+ends
+
+dseg segment
+  CellInput word
+  CountOfNeighborsOutput word
+dseg ends
+
+subroutine CountOfNeighbors
+  dseg segment
+    con_idx sword
+    con_cellstatus byte
+  dseg ends
+  set CountOfNeighborsOutput, 0
+
+//        +099  +100  +101
+//        -001     x  +001
+//        -101  -100  -099
+    set hoodidx, 0
+  hood_loop2:
+      index hoodval, hood, hoodidx
+      add con_idx, CellInput, hoodval
+      brtst LT, hood_skip2, con_idx // skip negative numbers
+      brcmp GTEQ, hood_skip2, con_idx, 6400 // skip numbers too large
+      // is this cell a live cell?
+      mov ailValue, con_idx
+      call alreadyInLiveCells
+      brtst EQ, hood_skip2, bAlreadyInList // skip if cell is not live
+      // otherwise increment our neighbor count
+      add CountOfNeighborsOutput, CountOfNeighborsOutput, 1
+    hood_skip2:
+      add hoodidx, hoodidx, 1
+    brcmp LT, hood_loop2, hoodidx, hoodlen
+//    #pragma debuglog 'cell ', CellInput, ' has ', CountOfNeighborsOutput, ' neighbors'
+  return
+ends
+
+subroutine newGeneration
+  dseg segment
+    chklen word
+    chkidx word
+    tmpctcn word[]
+    bCellIsLive byte
+    EndOfLiveCells word
+  dseg ends
+  
+  arrsize EndOfLiveCells, livecells
+  
+  arrinit tmpctcn, 0, 1
+
+  arrsize chklen, possibleNextGenCells
+  set chkidx, 1
+  brcmp GTEQ, chk_exit, chkidx, chklen // frame completed ?
+doCheck:
+    index CellInput, possibleNextGenCells, chkidx
+
+    call CountOfNeighbors
+        // get the state of the current cel
+        // the current cell is a live cell from the previous generation
+        // if chkidx < EndOfLiveCells
+        cmp LT, bCellIsLive, chkidx, EndOfLiveCells
+        
+
+        // check if cell dies, lives or is (re)born
+        // if the cell is dead check to see if it should be reborn
+        brtst EQ checkbirth, bCellIsLive // is cell dead ?
+        // if we get here then the cell is already alive
+        brcmp EQ cellIsAliveNextGen, CountOfNeighborsOutput, 2 // 2 neighbors so cell stays alive
+
+      checkbirth:
+        brcmp EQ, cellIsAliveNextGen, CountOfNeighborsOutput, 3 // only birth if 3 neighbors
+
+        // if we get here the cell is currently alive but it should die
+        jmp endcheck
+
+      cellIsAliveNextGen:
+        ADD_TO_ARRAY(tmpctcn, CellInput)
+
+      endcheck:
+        // all done with this cell go to next cell
+      add chkidx, chkidx, 1
+    brcmp LT, doCheck, chkidx, chklen
+
+  // before we finish we copy over our temporary array
+  mov livecells, tmpctcn
+  
+chk_exit:
+  return
+ends
